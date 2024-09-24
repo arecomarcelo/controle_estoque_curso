@@ -1,17 +1,19 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
 from vars import img_background, img_logo, fonte
-from funcoes import FecharTela
+from funcoes import FecharTela, Error
+import conexao as cn
 
 class LoginApplication(tk.Tk):
+    
     def __init__(self):
-        super().__init__()
+        super().__init__()       
         
         cor_fundo = "#04648b"
         
         self.title("OFICIAL SPORT - Login")
-        self.attributes('-fullscreen', True)  #Tela cheia
+        self.attributes('-fullscreen', True)  # Tela cheia
 
         bg_image = Image.open(img_background)
         bg_image = bg_image.resize((self.winfo_screenwidth(), self.winfo_screenheight()), Image.Resampling.LANCZOS)
@@ -72,8 +74,35 @@ class LoginApplication(tk.Tk):
     def on_login(self):
         username = self.user_entry.get()
         password = self.pass_entry.get()
-        print(f"Tentativa de login com usuário: {username}")
-        # Aqui você adicionaria a lógica de verificação do login
+
+        if self.verificar_login(username, password):
+            self.abrir_estoque()
+
+    def verificar_login(self, username, password):
+        try:
+            con=cn.conexao()
+            
+            sql_txt=(f"select usuario, senha from usuarios where usuario = '{username}'"
+                    + f"and senha = SHA2('{password}', 256)")
+                    
+            rs=con.consultar(sql_txt)
+        
+            if rs:
+                return True
+            else:
+                 messagebox.showerror("Aviso", "Usuario ou Senha Inválidos",parent = self)
+        except Error:
+            print(Error)
+            
+        con.fechar()        
+        
+        return False
+
+    def abrir_estoque(self):
+        self.destroy()  # Fecha a janela atual
+        from estoque import EstoqueApplication  # Importação local para evitar ciclo
+        estoque_app = EstoqueApplication()
+        estoque_app.mainloop()
 
 if __name__ == "__main__":
     tela = LoginApplication()
