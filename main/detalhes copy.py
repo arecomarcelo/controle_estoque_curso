@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
 from vars import fonte  # Supondo que 'fonte' é importado de vars
+from funcoes import LimparConsole
+
 
 class DetalhesApplication(tk.Tk):
-    def __init__(self, nome_produto):
+    def __init__(self):
         super().__init__()
         
         self.title("OFICIAL SPORT - Detalhes")
@@ -27,9 +30,7 @@ class DetalhesApplication(tk.Tk):
         ttk.Entry(center_frame, font=(fonte, 14)).grid(row=0, column=1, pady=5)
 
         ttk.Label(center_frame, text="Nome:", font=(fonte, 14)).grid(row=1, column=0, sticky=tk.W, padx=20, pady=5)
-        nome_entry = ttk.Entry(center_frame, font=(fonte, 14))
-        nome_entry.grid(row=1, column=1, pady=5)
-        nome_entry.insert(0, nome_produto)  # Exibe o nome do produto
+        ttk.Entry(center_frame, font=(fonte, 14)).grid(row=1, column=1, pady=5)
 
         ttk.Label(center_frame, text="Descrição:", font=(fonte, 14)).grid(row=2, column=0, sticky=tk.W, padx=20, pady=5)
         ttk.Entry(center_frame, font=(fonte, 14)).grid(row=2, column=1, pady=5)
@@ -71,7 +72,7 @@ class DetalhesApplication(tk.Tk):
         self.attributes('-fullscreen', False)
 
 if __name__ == "__main__":
-    tela_detalhes = DetalhesApplication("Exemplo de Produto")
+    tela_detalhes = DetalhesApplication()
     tela_detalhes.bind('<F11>', tela_detalhes.toggle_fullscreen)
     tela_detalhes.bind('<Escape>', lambda event: tela_detalhes.quit_fullscreen())
     tela_detalhes.mainloop()
