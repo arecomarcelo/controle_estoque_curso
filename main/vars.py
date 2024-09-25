@@ -9,12 +9,6 @@ caminhoImagens = caminhoAplicacao.replace(r'/', "\\") + 'imagens\\'
 img_icone_principal = f"{caminhoImagens}icone.ico"
 img_logo = f"{caminhoImagens}logo.png"
 img_background = f"{caminhoImagens}walpaper.png"
-icone_voltar = f"{caminhoImagens}voltar.png"
-icone_limpar = f"{caminhoImagens}limpar.png"
-icone_excluir = f"{caminhoImagens}excluir.png"
-icone_gravar = f"{caminhoImagens}gravar.png"
-icone_cancelar = f"{caminhoImagens}cancelar.png"
-icone_imprimir = f"{caminhoImagens}imprimir.png"
 
 QuebraLinha = "\n"
 

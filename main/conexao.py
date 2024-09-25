@@ -6,7 +6,7 @@ class conexao(object):
                                           password = "150215", 
                                           db ="estoque")
       
-    def gravar(self, sql):
+    def executar(self, sql):
         try:
             cur=self.db.cursor()
             cur.execute(sql)
